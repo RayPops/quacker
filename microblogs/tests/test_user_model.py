@@ -1,8 +1,7 @@
 from django.test import TestCase
-from .models import User
+from microblogs.models import User
 
 from django.core.exceptions import ValidationError
-from django.db import IntegrityError
 
 # User model tests
 class UserModelTestCase(TestCase):

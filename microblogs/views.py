@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from .forms import SignupForm
 
 # Create your views here.
@@ -8,5 +7,13 @@ def home(request):
     return render(request, 'home.html')
 
 def signup_view(request):
-    form = SignupForm()
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            return redirect('feed')
+    else:
+        form = SignupForm()
     return render(request, 'signup.html', {'form': form})
+
+def feed_view(request):
+    return render(request, 'feed.html')

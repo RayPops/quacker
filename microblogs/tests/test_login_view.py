@@ -12,13 +12,14 @@ class LogInViewTestCase(TestCase, LogInTester):
             'username': 'testuser',
             'password': 'testpass'
         }
-        User.objects.create_user(
+        self.user = User.objects.create_user(
             username='testuser',
             password='testpass',
             first_name='Test',
             last_name='User',
             email='testuser@example.com',
             bio='This is a test bio.',
+            is_active=True,
         )
 
     def test_login_url(self):
@@ -51,6 +52,18 @@ class LogInViewTestCase(TestCase, LogInTester):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('feed'))
         self.assertTrue(self._is_logged_in())
+
+    def test_valid_login_by_inactive_user(self):
+        self.user.is_active = False
+        self.user.save()
+        response = self.client.post(self.url, self.form_input)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
+        form = response.context['form']
+        self.assertIsInstance(form, LogInForm)
+        self.assertFalse(self._is_logged_in())
+
+
 
 
     

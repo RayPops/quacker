@@ -40,3 +40,7 @@ class SignupForm(forms.ModelForm):
             bio=self.cleaned_data.get('bio'),
         )
         return User
+
+class LogInForm(forms.Form):
+    username = forms.CharField(label='Username', required=True)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)

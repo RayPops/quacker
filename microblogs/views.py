@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm
+from .forms import LogInForm, SignupForm
 
 # Create your views here.
 
@@ -20,4 +20,5 @@ def feed_view(request):
     return render(request, 'feed.html')
 
 def login_view(request):
-    return render(request, 'login.html')
+    form = LogInForm()
+    return render(request, 'login.html', {'form': form})

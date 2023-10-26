@@ -9,6 +9,10 @@
         </header>
         <main>
             <p>Login Here</p>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Login">
             <!-- link back home -->
             <a href="{% url 'home' %}">Home</a>
             <!-- <ul>

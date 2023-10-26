@@ -31,7 +31,7 @@ class SignupForm(forms.ModelForm):
         
     def save(self):
         super().save(commit=False)
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=self.cleaned_data.get('username'),
             password=self.cleaned_data.get('password1'),
             first_name=self.cleaned_data.get('first_name'),
@@ -39,7 +39,7 @@ class SignupForm(forms.ModelForm):
             email=self.cleaned_data.get('email'),
             bio=self.cleaned_data.get('bio'),
         )
-        return User
+        return user
 
 class LogInForm(forms.Form):
     username = forms.CharField(label='Username', required=True)

@@ -18,3 +18,6 @@ def signup_view(request):
 
 def feed_view(request):
     return render(request, 'feed.html')
+
+def login_view(request):
+    return render(request, 'login.html')

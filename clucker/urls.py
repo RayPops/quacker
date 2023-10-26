@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('feed/', views.feed_view, name='feed'),
     path('signup/', views.signup_view, name='signup'),
+    path('login/', views.login_view, name='login')
 ]

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import LogInForm, SignupForm
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 # Create your views here.
 
@@ -31,6 +32,8 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect('feed')
+        # add error message for incorrect login
+        messages.add_message(request, messages.ERROR, 'Incorrect username or password.')
     else:
         form = LogInForm()
     return render(request, 'login.html', {'form': form})

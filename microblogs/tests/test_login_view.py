@@ -3,6 +3,7 @@ from django.urls import reverse
 from microblogs.forms import LogInForm
 from microblogs.models import User
 from .helpers import LogInTester
+from django.contrib import messages
 
 class LogInViewTestCase(TestCase, LogInTester):
     def setUp(self):
@@ -46,6 +47,9 @@ class LogInViewTestCase(TestCase, LogInTester):
         form = response.context['form']
         self.assertIsInstance(form, LogInForm)
         self.assertFalse(self._is_logged_in())
+        messages_list = list(response.context['messages'])
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(str(messages_list[0]), 'Incorrect username or password.')
 
     def test_successful_login(self):
         response = self.client.post(self.url, self.form_input)
@@ -62,6 +66,9 @@ class LogInViewTestCase(TestCase, LogInTester):
         form = response.context['form']
         self.assertIsInstance(form, LogInForm)
         self.assertFalse(self._is_logged_in())
+        messages_list = list(response.context['messages'])
+        self.assertEqual(len(messages_list), 1)
+        self.assertEqual(str(messages_list[0]), 'Incorrect username or password.')
 
 
 
